@@ -21,6 +21,10 @@ class Animal:
         return (f"{{Name: {self.name}, "
                 f"Health: {self.health}, Hidden: {self.hidden}}}")
 
+    @classmethod
+    def __str__(cls):
+        return f"[{', '.join(str(animal) for animal in cls.alive)}]"
+
 
 class Herbivore(Animal):
     def hide(self) -> None:
@@ -29,9 +33,9 @@ class Herbivore(Animal):
 
 class Carnivore(Animal):
     @staticmethod
-    def bite(other: "Animal") -> None:
-        if other.hidden is not True:
-            if isinstance(other, Carnivore):
-                return
-            else:
-                other.take_damage()
+    def bite(other: "Animal"):
+        if not isinstance(other, Animal):
+            raise TypeError("The object to bite "
+                            "must be an instance of Animal.")
+        if isinstance(other, Herbivore) and not other.hidden:
+            other.take_damage(50)
