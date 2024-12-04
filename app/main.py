@@ -1,3 +1,6 @@
+from typing import Any
+
+
 class Animal:
     alive = []
 
@@ -22,8 +25,8 @@ class Animal:
                 f"Health: {self.health}, Hidden: {self.hidden}}}")
 
     @classmethod
-    def __str__(cls):
-        return f"[{', '.join(str(animal) for animal in cls.alive)}]"
+    def __str__(cls) -> str:
+        return f"[{", ".join(str(animal) for animal in cls.alive)}]"
 
 
 class Herbivore(Animal):
@@ -33,7 +36,7 @@ class Herbivore(Animal):
 
 class Carnivore(Animal):
     @staticmethod
-    def bite(other: "Animal"):
+    def bite(other: "Animal") -> Any:
         if not isinstance(other, Animal):
             raise TypeError("The object to bite "
                             "must be an instance of Animal.")
